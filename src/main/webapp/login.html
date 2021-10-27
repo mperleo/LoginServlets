@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Boutique | Ecommerce bootstrap template</title>
+        <title>Inicia sesión | BïkeMeisters</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="all,follow">
@@ -104,18 +104,19 @@
           </header>
 
           <div class="container-fluid">
+          
             <div class="card mb-4" id="forms">
                 <div class="card-header font-syne">Inicia sesión</div>
                 <div class="card-body">
-                  <form action="login.html" method="post">
+                  <form action="/ProyectoTienda/Login" method="POST">
                     <fieldset>
                       <div class="form-group">
-                        <label class="text-small text-uppercase"for="exampleInputEmail">Corre electronico</label>
-                        <input class="form-control" id="exampleInputEmail" type="email" placeholder="Indica tu correo">
+                        <label class="text-small text-uppercase"for="email">Correo electronico</label>
+                        <input class="form-control" id="email" name="email" type="email" placeholder="Indica tu correo">
                       </div>
                       <div class="form-group">
-                        <label class="text-small text-uppercase"for="exampleInputPassword">Contraseña</label>
-                        <input class="form-control" id="exampleInputPassword" type="password" placeholder="Indica tu contraseña">
+                        <label class="text-small text-uppercase"for="pass">Contraseña</label>
+                        <input class="form-control" id="email" name="pass" type="password" placeholder="Indica tu contraseña">
                       </div>
                       <div class="form-check form-group">
                         <input class="form-check-input" id="checkbox-1" type="checkbox">
@@ -134,7 +135,8 @@
                         <button class="btn btn-primary font-syne" type="submit">Crea tu usuario</button>
                   </form>   
                 </div> 
-            </div>        
+            </div>   
+                 
           </div>
 
           <footer class="bg-dark text-white">
