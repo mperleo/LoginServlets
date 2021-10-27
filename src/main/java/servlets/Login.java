@@ -1,11 +1,15 @@
 package servlets;
 
 import java.io.IOException;
+import java.net.URL;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.PropertyConfigurator;
 
 import DAO.UsuarioDAO;
 import DTO.Usuario;
@@ -29,6 +33,12 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//fichero de logs
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		URL url = loader.getResource("log4j.properties");
+		System.out.println(url);
+		PropertyConfigurator.configure(url);
+		
 		doPost(request, response);
 	}
 
