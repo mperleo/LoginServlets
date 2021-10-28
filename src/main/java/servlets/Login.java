@@ -58,12 +58,12 @@ public class Login extends HttpServlet {
 				response.sendRedirect("login.html");
 			} else {
 				if(usuario.getId_rol()==1) {
-					response.sendRedirect("index.html");
+					response.sendRedirect("/admin/index.html");
 				}
 				else if(usuario.getId_rol()==2) {
 					response.sendRedirect("index.html");
 				}
-				response.getWriter().println("Login correcto.");
+				//response.getWriter().println("Login correcto.");
 			}
 		}
 	}
