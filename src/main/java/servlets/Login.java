@@ -2,12 +2,14 @@ package servlets;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.PropertyConfigurator;
 
@@ -39,7 +41,20 @@ public class Login extends HttpServlet {
 		System.out.println(url);
 		PropertyConfigurator.configure(url);
 		
-		doPost(request, response);
+		// busco si se ha indicado el parametro de cerrar sesion
+		String cerrarSesion = request.getParameter("logout");
+		
+		if(cerrarSesion.equals("true")){
+			// si se ha indicado se borra la sesion y mando al usuario al index
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.sendRedirect("index.jsp");
+		}else {
+			doPost(request, response);
+		}
+		
+		
+		
 	}
 
 	/**
@@ -49,14 +64,27 @@ public class Login extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		String clave = request.getParameter("pass");
-		
+
 		if(email==null || clave==null) {
+			// no se han indicado datos
 			response.sendRedirect("login.jsp");
 		} else {
+			// busco en la bbdd los datos indicados
 			Usuario usuario = UsuarioDAO.seleccionarUsuarioLogin(email, clave);
 			if(usuario==null) {
+				// no se ha encontrado el usuario en la bbdd
 				response.sendRedirect("login.jsp");
 			} else {
+				// se han encontrado los datos
+				
+				// guardo los datos del usuario en sesion
+				HttpSession sesion = request.getSession();
+				sesion.setAttribute("usuarioNombre", usuario.getNombre());
+				sesion.setAttribute("usuarioID", usuario.getCodigo());
+				sesion.setAttribute("usuarioROL", usuario.getId_rol());
+				sesion.setAttribute("usuarioDateLogin", new Date(sesion.getCreationTime()));
+				
+				// se manda al usuario si se han econtrado los datos al index correspondiente dependiendo si es admin o usuario registrado
 				if(usuario.getId_rol()==1) {
 					response.sendRedirect("admin/index.jsp");
 				}
@@ -66,6 +94,7 @@ public class Login extends HttpServlet {
 				//response.getWriter().println("Login correcto.");
 			}
 		}
+		
 	}
 
 }

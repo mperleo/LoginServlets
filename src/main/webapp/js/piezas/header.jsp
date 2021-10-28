@@ -27,7 +27,15 @@
               <ul class="navbar-nav ms-auto flex-row-reverse">               
                 <li class="nav-item"><a class="nav-link" href="cart.html"><i class="fas fa-dolly-flatbed mx-1 text-gray"></i>Cart<small class="text-gray"> (2)</small></a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="far fa-heart mx-1"></i><small class="text-gray"> (0)</small></a></li>
-                <li class="nav-item"><a class="nav-link active" href="login.jsp"><i class="fas fa-user-alt mx-1 text-gray"></i>Login</a></li>
+                
+                <%
+                	if(session.getAttribute("usuarioNombre") != null ){
+    					out.print("<li class='nav-item'><a class='nav-link' href='/ProyectoTienda/Login?logout=true'><i class='fas fa-user-alt mx-1 text-gray'></i>"+session.getAttribute("usuarioNombre")+", Cerrar sesión</a></li>");   
+					}
+                	else{
+                		out.print("<li class='nav-item'><a class='nav-link' href='login.jsp'><i class='fas fa-user-alt mx-1 text-gray'></i>Login</a></li>");
+                	}
+				%>
               </ul>
             </div>
           </nav>

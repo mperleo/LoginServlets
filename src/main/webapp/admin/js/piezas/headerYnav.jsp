@@ -15,7 +15,7 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="/ProyectoTienda/Login?logout=true">Logout</a></li>
                     </ul>
                 </li>
             </ul>   
@@ -81,7 +81,8 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Usuario:</div>
-                        Start Bootstrap
+                        ${sessionScope['usuarioNombre'] } <br>
+                        ${sessionScope['usuarioDateLogin'] }
                     </div>
                 </nav>
             </div>
