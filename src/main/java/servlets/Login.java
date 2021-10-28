@@ -51,17 +51,17 @@ public class Login extends HttpServlet {
 		String clave = request.getParameter("pass");
 		
 		if(email==null || clave==null) {
-			response.sendRedirect("login.html");
+			response.sendRedirect("login.jsp");
 		} else {
 			Usuario usuario = UsuarioDAO.seleccionarUsuarioLogin(email, clave);
 			if(usuario==null) {
-				response.sendRedirect("login.html");
+				response.sendRedirect("login.jsp");
 			} else {
 				if(usuario.getId_rol()==1) {
-					response.sendRedirect("/admin/index.html");
+					response.sendRedirect("admin/index.jsp");
 				}
 				else if(usuario.getId_rol()==2) {
-					response.sendRedirect("index.html");
+					response.sendRedirect("index.jsp");
 				}
 				//response.getWriter().println("Login correcto.");
 			}
