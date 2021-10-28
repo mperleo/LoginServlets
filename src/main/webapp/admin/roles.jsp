@@ -15,12 +15,17 @@
 		 %>	
             <div id="layoutSidenav_content">
                 <main>
+                	
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Roles</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Administracion</a></li>
+                            <li class="breadcrumb-item"><a href="index.jsp">Administracion</a></li>
                             <li class="breadcrumb-item active">Roles</li>
+                            
                         </ol>
+                        
+                        <a class="btn btn-primary " href="rolNuevo.jsp" role="button">Nuevo rol</a>
+                        
                         <!--<div class="card mb-4">
                             <div class="card-body">
                                 <p class="mb-0">

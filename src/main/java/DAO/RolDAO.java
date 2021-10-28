@@ -39,7 +39,7 @@ public class RolDAO {
         return roles;
     }
     
-    public Rol seleccionarRol(int id){
+    public static Rol seleccionarRol(int id){
     	Rol rol = null;
     	Connection con = Conexion.getConexion();
     	
@@ -66,7 +66,7 @@ public class RolDAO {
     }
     
     
-    public boolean insertar(String rol){
+    public static boolean insertar(String rol){
     	boolean insertado = false;
     	Connection con = Conexion.getConexion();
 	    try {
