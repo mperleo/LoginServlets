@@ -1,8 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.*, DAO.*, DTO.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <%@ include file="js/piezas/head.jsp" %>
     <body>
         <%@ include file="js/piezas/headerYnav.jsp" %>
+        
+        <%
+			 ArrayList<Usuario> usuariosLista = UsuarioDAO.seleccionarUsuarios();
+             pageContext.setAttribute("usuariosLista", usuariosLista);
+		 %>	
 
             <div id="layoutSidenav_content">
                 <main>
@@ -29,26 +39,29 @@
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Apellidos</th>
                                 <th scope="col">Direccion</th>
-                                <th scope="col">Teléfono</th>
+                                <th scope="col">TelÃ©fono</th>
                                 <th scope="col">DNI</th>
                                 <th scope="col">Acciones</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <th scope="col">id_rol</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Apellidos</th>
-                                <th scope="col">Direccion</th>
-                                <th scope="col">Teléfono</th>
-                                <th scope="col">DNI</th>
-                                <td>
-                                    <a class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                    <a class="btn btn-primary btn-sm"><i class="fas fa-pen"></i> Modificar</a>
-                                </td>
-                              </tr>
+                            	<c:forEach items="${pageScope.usuariosLista}" var="usuario" >
+	                              <tr>
+	                                <th scope="row"><c:out value="${usuario.getCodigo()}"></c:out></th>
+	                                <th ><c:out value="${usuario.getId_rol()}"></c:out></th>
+	                                <th ><c:out value="${usuario.getEmail()}"></c:out></th>
+	                                <th ><c:out value="${usuario.getNombre()}"></c:out></th>
+	                                <th ><c:out value="${usuario.getApellido1()}"></c:out> <c:out value="${usuario.getApellido2()}" ></c:out></th>
+	                                <th ><c:out value="${usuario.getDireccion()}"></c:out>, <c:out value="${usuario.getProvincia()}"></c:out>,  <c:out value="${usuario.getLocalidad()}"></c:out></th>
+	                                <th ><c:out value="${usuario.getTelefono()}"></c:out></th>
+	                                <th ><c:out value="${usuario.getDni()}"></c:out></th>
+	                                <td>
+	                                    <a class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
+	                                    <a class="btn btn-primary btn-sm"><i class="fas fa-pen"></i> Modificar</a>
+	                                </td>
+	                              </tr>
+	                             </c:forEach>
+	                            
                             </tbody>
                         </table>
 

@@ -52,9 +52,6 @@ public class Login extends HttpServlet {
 		}else {
 			doPost(request, response);
 		}
-		
-		
-		
 	}
 
 	/**

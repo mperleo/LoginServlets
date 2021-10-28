@@ -57,15 +57,18 @@
                     </fieldset>
                     <br>
                     <fieldset>
-                      <legend>Indica tu contraseña</legend>
+                      <legend>Indica tu contrase�a</legend>
                       <hr class="my-2">
                       <div class="form-group">
-                        <label class="text-small text-uppercase"for="exampleInputPassword">Contraseña</label>
+                        <label class="text-small text-uppercase"for="exampleInputPassword">Contrase�a</label>
                         <input class="form-control" id="exampleInputPassword" type="password" placeholder="Indica tu contraseña">
                       </div>
                       <div class="form-group">
-                          <label class="text-small text-uppercase"for="exampleInputPassword">Repite la contraseña</label>
+                      	<div class="input-group flex-column flex-sm-row mb-3">
+                          <label class="text-small text-uppercase"for="exampleInputPassword">Repite la contrase�a</label>
                           <input class="form-control" id="exampleInputPassword2" type="password2" placeholder="Indica tu contraseña">
+                          <button class="btn btn-dark btn-block" id="button-addon2" type="submit">Subscribe</button>
+                        </div>
                       </div>
                     </fieldset>
                     <hr class="my-4">  

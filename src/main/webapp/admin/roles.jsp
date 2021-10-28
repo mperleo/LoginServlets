@@ -1,9 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.*, DAO.*, DTO.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <%@ include file="js/piezas/head.jsp" %>
     <body>
          <%@ include file="js/piezas/headerYnav.jsp" %>
-
+			
+		 <%
+			 ArrayList<Rol> roles = RolDAO.seleccionarRoles();
+		 	 pageContext.setAttribute("roles", roles);
+		 %>	
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -29,24 +38,16 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>
-                                    <a class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                    <a class="btn btn-primary btn-sm"><i class="fas fa-pen"></i> Modificar</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                              </tr>
+                            	<c:forEach items="${pageScope.roles}" var="rol">
+	                              <tr>
+	                                <th scope="row"><c:out value="${rol.getId()}"></c:out></th>
+	                                <th><c:out value="${rol.getRol()}"></c:out></th>
+	                                <th>
+	                                    <a class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
+	                                    <a class="btn btn-primary btn-sm"><i class="fas fa-pen"></i> Modificar</a>
+	                                </th>
+	                              </tr>
+                                </c:forEach>
                               
                             </tbody>
                         </table>

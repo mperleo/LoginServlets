@@ -26,7 +26,7 @@
               </ul>
               <ul class="navbar-nav ms-auto flex-row-reverse">               
                 <li class="nav-item"><a class="nav-link" href="cart.html"><i class="fas fa-dolly-flatbed mx-1 text-gray"></i>Cart<small class="text-gray"> (2)</small></a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="far fa-heart mx-1"></i><small class="text-gray"> (0)</small></a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="far fa-heart mx-1"></i><small class="text-gray"></small></a></li>
                 
                 <%
                 	if(session.getAttribute("usuarioNombre") != null ){

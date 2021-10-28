@@ -27,7 +27,6 @@ public class RolDAO {
 	        
 	        while(resultado.next()) {
 	        	Rol rol = new Rol(resultado.getInt("id"), resultado.getString("rol"));  
-
 	        	roles.add(rol);
 	        }
 	        ps.close();
