@@ -12,8 +12,17 @@
     <filter-name>SessionFilter</filter-name>
     <filter-class>filtros.SessionFilter</filter-class>
   </filter>
+  <filter>
+    <display-name>RolFilter</display-name>
+    <filter-name>RolFilter</filter-name>
+    <filter-class>filtros.RolFilter</filter-class>
+  </filter>
   <filter-mapping>
     <filter-name>SessionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+   <filter-mapping>
+    <filter-name>RolFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 </web-app>

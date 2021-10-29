@@ -1,8 +1,6 @@
 package filtros;
 
 import java.io.IOException;
-import java.util.Stack;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -20,17 +18,16 @@ import org.apache.log4j.Logger;
 import DAO.UsuarioDAO;
 
 /**
- * Servlet Filter implementation class SessionFilter
+ * Servlet Filter implementation class RolFilter
  */
-@WebFilter("/SessionFilter")
-public class SessionFilter implements Filter {
+@WebFilter("/RolFilter")
+public class RolFilter implements Filter {
 	
-	private static Logger logger = LogManager.getLogger(SessionFilter.class);
-
+	private static Logger logger = LogManager.getLogger(RolFilter.class);
     /**
      * Default constructor. 
      */
-    public SessionFilter() {
+    public RolFilter() {
         // TODO Auto-generated constructor stub
     }
 

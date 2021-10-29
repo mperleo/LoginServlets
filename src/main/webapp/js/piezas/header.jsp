@@ -28,27 +28,39 @@
                 <li class="nav-item">
                   <!-- Link--><a class="nav-link" href="shop.html">Ofertas</a>
                 </li>
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias</a>
                   <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
                     <a class="dropdown-item border-0 transition-link" href="index.jsp">Homepage</a>
                     <a class="dropdown-item border-0 transition-link" href="shop.html">Category</a>
                     <a class="dropdown-item border-0 transition-link" href="detail.html">Product detail</a>
                     <a class="dropdown-item border-0 transition-link" href="cart.html">Shopping cart</a>
-                    <a class="dropdown-item border-0 transition-link" href="checkout.html">Checkout</a></div>
+                    <a class="dropdown-item border-0 transition-link" href="checkout.html">Checkout</a>
+                  </div>
                 </li>
               </ul>
               <ul class="navbar-nav ms-auto flex-row-reverse">               
                 <li class="nav-item"><a class="nav-link" href="cart.html"><i class="fas fa-dolly-flatbed mx-1 text-gray"></i>Cart<small class="text-gray"> (2)</small></a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="far fa-heart mx-1"></i><small class="text-gray"></small></a></li>
+                	
+                <c:set var="usuarioNombre" scope="session" value="${sessionScope.usuarioNombre}"/>
                 
-                <%
-                	if(session.getAttribute("usuarioNombre") != null ){
-    					out.print("<li class='nav-item'><a class='nav-link' href='/ProyectoTienda/Login?logout=true'><i class='fas fa-user-alt mx-1 text-gray'></i>"+session.getAttribute("usuarioNombre")+", Cerrar sesión</a></li>");   
-					}
-                	else{
-                		out.print("<li class='nav-item'><a class='nav-link' href='login.jsp'><i class='fas fa-user-alt mx-1 text-gray'></i>Login</a></li>");
-                	}
-				%>
+                <c:if test="${usuarioNombre != null}">
+                	<li class="nav-item dropdown">
+                		<a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                			<i class='fas fa-user-alt mx-1 text-gray'></i><c:out value="${sessionScope.usuarioNombre}"></c:out>
+                		</a>
+                		 <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
+                		 	<a class="dropdown-item border-0 transition-link" href='#'>Opciones de usuario</a><hr>
+                		 	<a class="dropdown-item border-0 transition-link text-danger" href='/ProyectoTienda/Login?logout=true'>Cerrar sesión</a>
+                		 </div>	
+                	</li>   
+						
+				</c:if>
+ 
+				<c:if test="${usuarioNombre == null}">
+                	<li class='nav-item'><a class='nav-link' href='login.jsp'><i class='fas fa-user-alt mx-1 text-gray'></i>Login</a></li>
+                </c:if>
               </ul>
             </div>
           </nav>
@@ -56,5 +68,5 @@
       </header>
       
       <div class="container-fluid">
-      		<a href="/ProyectoTienda/Atras?atras='true'" class="link-primary">Atras</a><hr>
+      		<a href="Atras?atras='true'" class="link-primary">Atras</a><hr>
       </div>
