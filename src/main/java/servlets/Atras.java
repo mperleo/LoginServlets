@@ -33,9 +33,9 @@ public class Atras extends HttpServlet {
 		String direccionIr =null;
 		
 		HttpSession sesion = request.getSession();
-		Stack<String> pilaAtras = (Stack) sesion.getAttribute("pilaAtras");
+		Stack<String> pilaAtras = (Stack<String>) sesion.getAttribute("pilaAtras");
 		
-		if(pilaAtras != null && atras.equals(true) ) {
+		if(pilaAtras != null && atras.equals("true") ) {
 			String anterior = pilaAtras.pop();
 			
 			// si se da atras en la pagina por la que se entra a la web y la pila queda vacia se manda a la pagina desde la que se pulso el boton atras
@@ -47,7 +47,7 @@ public class Atras extends HttpServlet {
 				
 			}
 		}
-		
+		System.out.println(direccionIr);
 		sesion.setAttribute("pilaAtras", pilaAtras);
 		response.sendRedirect(direccionIr);
 	}

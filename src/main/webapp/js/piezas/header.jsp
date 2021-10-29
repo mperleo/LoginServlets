@@ -3,9 +3,12 @@
 <%@ page import="java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% 
-	Stack<String> pilaAtras = (Stack) session.getAttribute("pilaAtras"); 
+	Stack<String> pilaAtras = (Stack<String>) session.getAttribute("pilaAtras"); 
 	//meto en la pila de direcciones la direccion actual sempre que no sean la paginas de login y crear un usuario
 	if(!request.getRequestURI().endsWith("login.jsp") && !request.getRequestURI().endsWith("signin.jsp") ){
+		if(pilaAtras == null){
+			pilaAtras = new Stack<String>();
+		}
 		pilaAtras.push(request.getRequestURI());
 		session.setAttribute("pilaAtras", pilaAtras);
 	}	
@@ -53,5 +56,5 @@
       </header>
       
       <div class="container-fluid">
-      		<a href="/ProyectoTienda/Atras" class="link-primary">Atras</a><hr>
+      		<a href="/ProyectoTienda/Atras?atras='true'" class="link-primary">Atras</a><hr>
       </div>
