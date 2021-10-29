@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page isELIgnored="false"%>
+<%@ page import="java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% 
+	Stack<String> pilaAtras = (Stack) session.getAttribute("pilaAtras"); 
+	//meto en la pila de direcciones la direccion actual sempre que no sean la paginas de login y crear un usuario
+	if(!request.getRequestURI().endsWith("login.jsp") && !request.getRequestURI().endsWith("signin.jsp") ){
+		pilaAtras.push(request.getRequestURI());
+		session.setAttribute("pilaAtras", pilaAtras);
+	}	
+%>
+
 
       <!-- navbar-->
       <header class="header bg-header-page">
@@ -41,3 +51,7 @@
           </nav>
         </div>
       </header>
+      
+      <div class="container-fluid">
+      		<a href="/ProyectoTienda/Atras" class="link-primary">Atras</a><hr>
+      </div>

@@ -1,30 +1,26 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.Stack;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import DAO.RolDAO;
-import DAO.UsuarioDAO;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class rolNuevo
+ * Servlet implementation class Atras
  */
-@WebServlet("/rolNuevo")
-public class rolNuevo extends HttpServlet {
-	private static Logger logger = LogManager.getLogger(rolNuevo.class);
+@WebServlet("/Atras")
+public class Atras extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public rolNuevo() {
+    public Atras() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,23 +29,35 @@ public class rolNuevo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
+		String atras = request.getParameter("atras");
+		String direccionIr =null;
+		
+		HttpSession sesion = request.getSession();
+		Stack<String> pilaAtras = (Stack) sesion.getAttribute("pilaAtras");
+		
+		if(pilaAtras != null && atras.equals(true) ) {
+			String anterior = pilaAtras.pop();
+			
+			// si se da atras en la pagina por la que se entra a la web y la pila queda vacia se manda a la pagina desde la que se pulso el boton atras
+			if(pilaAtras.empty()) {
+				direccionIr = anterior;
+				
+			}else {
+				direccionIr = pilaAtras.peek();
+				
+			}
+		}
+		
+		sesion.setAttribute("pilaAtras", pilaAtras);
+		response.sendRedirect(direccionIr);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String rol = request.getParameter("rol");
-		
-		if(rol!=null) {
-			if(RolDAO.insertar(rol)) {
-				response.sendRedirect("admin/roles.jsp");
-			}
-			else {
-				response.sendRedirect("admin/roles.jsp");
-			}
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

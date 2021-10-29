@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import DAO.UsuarioDAO;
@@ -22,6 +24,7 @@ import DTO.Usuario;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = LogManager.getLogger(Login.class);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,7 +41,6 @@ public class Login extends HttpServlet {
 		//fichero de logs
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		URL url = loader.getResource("log4j.properties");
-		System.out.println(url);
 		PropertyConfigurator.configure(url);
 		
 		// busco si se ha indicado el parametro de cerrar sesion
@@ -83,9 +85,11 @@ public class Login extends HttpServlet {
 				
 				// se manda al usuario si se han econtrado los datos al index correspondiente dependiendo si es admin o usuario registrado
 				if(usuario.getId_rol()==1) {
+					logger.info("Admin: "+usuario.getEmail()+" ha iniciado sesión");
 					response.sendRedirect("admin/index.jsp");
 				}
 				else if(usuario.getId_rol()==2) {
+					logger.info("Usuario: "+usuario.getEmail()+" iniciado sesion");
 					response.sendRedirect("index.jsp");
 				}
 				//response.getWriter().println("Login correcto.");
