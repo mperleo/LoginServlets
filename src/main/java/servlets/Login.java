@@ -80,7 +80,7 @@ public class Login extends HttpServlet {
 				HttpSession sesion = request.getSession();
 				sesion.setAttribute("usuarioNombre", usuario.getNombre());
 				sesion.setAttribute("usuarioID", usuario.getCodigo());
-				sesion.setAttribute("usuarioROL", usuario.getId_rol());
+				sesion.setAttribute("usuarioROL", (Integer)usuario.getId_rol());
 				sesion.setAttribute("usuarioDateLogin", new Date(sesion.getCreationTime()));
 				
 				// se manda al usuario si se han econtrado los datos al index correspondiente dependiendo si es admin o usuario registrado

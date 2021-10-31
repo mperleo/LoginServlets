@@ -45,12 +45,12 @@ public class RolFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse res = (HttpServletResponse)response;
 		
-		HttpSession sesion = req.getSession(false);
+		HttpSession sesion = req.getSession();
 		String path = req.getRequestURI(); 
 
-		if (sesion == null || sesion.getAttribute("usuarioRol") == null) {	
+		if (sesion == null || sesion.getAttribute("usuarioROL") == null) {	
 			// si no hay usuario registrado o si no hay una sesion iniciada
-			
+
 			// si intenta acceder a la parte de paginas de administrador se deniega la entrada
 			if(path.contains("/admin")) {
 				logger.error("Usuario ha intentado acceder a una pagina sin permisos "+req.getRequestURI());
@@ -74,14 +74,13 @@ public class RolFilter implements Filter {
 			}
 			
 		} else {
-			Integer rolUsuario = (Integer) sesion.getAttribute("usuarioRol");
+			Integer rolUsuario = (Integer) sesion.getAttribute("usuarioROL");
 			
 			// administrador tiene acceso a todas las partes
 			if(rolUsuario == 1) {
 				chain.doFilter(request, response);
 			}
-			
-			if(rolUsuario == 2) {
+			else if(rolUsuario == 2) {
 				// si intenta acceder a la parte de paginas de administrador se deniega la entrada
 				if(path.contains("/admin")) {
 					logger.error("Usuario ha intentado acceder a una pagina sin permisos "+req.getRequestURI());
