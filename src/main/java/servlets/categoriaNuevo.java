@@ -10,21 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import DAO.RolDAO;
-import DAO.UsuarioDAO;
+import DAO.CategoriaDAO;
+import DTO.Categoria;
 
 /**
  * Servlet implementation class rolNuevo
  */
-@WebServlet("/rolNuevo")
-public class rolNuevo extends HttpServlet {
-	private static Logger logger = LogManager.getLogger(rolNuevo.class);
+@WebServlet("/categoriaNuevo")
+public class categoriaNuevo extends HttpServlet {
+	private static Logger logger = LogManager.getLogger(categoriaNuevo.class);
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public rolNuevo() {
+    public categoriaNuevo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,14 +40,14 @@ public class rolNuevo extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String rol = request.getParameter("rol");
+		Categoria nueva = new Categoria( request.getParameter("nombre"),request.getParameter("descripcion")) ;
 		
-		if(rol!=null) {
-			if(RolDAO.insertar(rol)) {
-				response.sendRedirect("admin/roles.jsp");
+		if(nueva!=null) {
+			if(CategoriaDAO.insertar(nueva)) {
+				response.sendRedirect("admin/categorias.jsp");
 			}
 			else {
-				response.sendRedirect("admin/roles.jsp");
+				response.sendRedirect("admin/categorias.jsp");
 			}
 		}
 	}

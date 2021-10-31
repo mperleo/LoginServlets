@@ -9,25 +9,25 @@ import java.util.ArrayList;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import DTO.Rol;
+import DTO.Categoria;
 
-public class RolDAO {
-	private static Logger logger = LogManager.getLogger(RolDAO.class);
+public class CategoriaDAO {
+private static Logger logger = LogManager.getLogger(CategoriaDAO.class);
 	
-    public static ArrayList<Rol> seleccionarRoles(){
-        ArrayList<Rol> roles = new ArrayList<Rol>();
+    public static ArrayList<Categoria> seleccionarCategorias(){
+        ArrayList<Categoria> categorias = new ArrayList<Categoria>();
         
         Connection con = Conexion.getConexion();
     
 
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM roles");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM categorias");
 	        
 	        ResultSet resultado = ps.executeQuery();
 	        
 	        while(resultado.next()) {
-	        	Rol rol = new Rol(resultado.getInt("id"), resultado.getString("rol"));  
-	        	roles.add(rol);
+	        	Categoria categoria = new Categoria(resultado.getInt("id"), resultado.getString("nombre"), resultado.getString("descripcion"));  
+	        	categorias.add(categoria);
 	        }
 	        ps.close();
         } catch (SQLException e) {
@@ -36,23 +36,23 @@ public class RolDAO {
         } 
         
         Conexion.desconectar();
-        return roles;
+        return categorias;
     }
     
-    public static Rol seleccionarRol(int id){
-    	Rol rol = null;
+    public static Categoria seleccionarCategoria(int id){
+    	Categoria categoria = null;
     	Connection con = Conexion.getConexion();
     	
     	PreparedStatement ps;
 		try {
-			ps = con.prepareStatement("SELECT * FROM roles WHERE id = ?");
+			ps = con.prepareStatement("SELECT * FROM categorias WHERE id = ?");
 			
 			ps.setInt(1, id);
 	        
 	        ResultSet resultado = ps.executeQuery();
 	        resultado.next();
 	        
-	        rol = new Rol(resultado.getInt("id"), resultado.getString("nombre"));
+	        categoria = new Categoria(resultado.getInt("id"), resultado.getString("nombre"), resultado.getString("descripcion"));  
 	        
 	        ps.close();
 		} catch (SQLException e) {
@@ -62,17 +62,18 @@ public class RolDAO {
        
         Conexion.desconectar();
         
-        return rol;
+        return categoria;
     }
     
     
-    public static boolean insertar(String rol){
+    public static boolean insertar(Categoria nueva){
     	boolean insertado = false;
     	Connection con = Conexion.getConexion();
 	    try {
-	        PreparedStatement ps = con.prepareStatement("INSERT INTO roles (rol) " + "VALUES (?)");
+	        PreparedStatement ps = con.prepareStatement("INSERT INTO categorias (nombre, descripcion) " + "VALUES (?, ?)");
 	
-	        ps.setString(1, rol);
+	        ps.setString(1, nueva.getNombre());
+	        ps.setString(2, nueva.getDescripcion());
 	        int resultado = ps.executeUpdate();
 	
 	        if (resultado != 0) {
@@ -83,7 +84,7 @@ public class RolDAO {
 	        
 	        
     	} catch (SQLException e) {
-			logger.error("Fallo al recuperar datos de la base de datos" + e.getMessage());
+			logger.error("Fallo al insertar datos de la base de datos" + e.getMessage());
 			e.printStackTrace();
 		}    
 	   
