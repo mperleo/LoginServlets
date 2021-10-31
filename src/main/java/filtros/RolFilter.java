@@ -47,14 +47,55 @@ public class RolFilter implements Filter {
 		
 		HttpSession sesion = req.getSession(false);
 		String path = req.getRequestURI(); 
-		
-		if (sesion != null || path.endsWith("login.jsp")) {	
+
+		if (sesion == null || sesion.getAttribute("usuarioRol") == null) {	
+			// si no hay usuario registrado o si no hay una sesion iniciada
 			
-			chain.doFilter(request, response);
+			// si intenta acceder a la parte de paginas de administrador se deniega la entrada
+			if(path.contains("/admin")) {
+				logger.error("Usuario ha intentado acceder a una pagina sin permisos "+req.getRequestURI());
+				res.sendRedirect("/ProyectoTienda/error.jsp");
+			}
+			// si intenta acceder a las partes publicas de la web se permite el acceso
+			// si se intenta acceder a un recurso .jsp
+			else if (path.contains(".jsp") ){
+				if( path.contains("login.jsp") || path.contains("index.jsp") || path.contains("signin.jsp") || path.contains("error.jsp") || path.contains("Login") ) {
+					chain.doFilter(request, response);
+				}
+				// si intenta acceder a las partes de la web para usuarios registrados se manda al usuario a la pagina de login
+				else {
+					logger.warn("Usuario ha intentado acceder a un recurso de usuario registrado sin estar registrado "+req.getRequestURI());
+					res.sendRedirect("/ProyectoTienda/login.jsp");
+				}
+			}
+			// si se pide un recurso que no esta ni en la carpta administrador ni es una pagina jsp se manda la peticion
+			else {
+				chain.doFilter(request, response);
+			}
+			
 		} else {
+			Integer rolUsuario = (Integer) sesion.getAttribute("usuarioRol");
+			
+			// administrador tiene acceso a todas las partes
+			if(rolUsuario == 1) {
+				chain.doFilter(request, response);
+			}
+			
+			if(rolUsuario == 2) {
+				// si intenta acceder a la parte de paginas de administrador se deniega la entrada
+				if(path.contains("/admin")) {
+					logger.error("Usuario ha intentado acceder a una pagina sin permisos "+req.getRequestURI());
+					res.sendRedirect("/ProyectoTienda/error.jsp");
+				}
+				// el resto de peticiones se permiten
+				else {
+					chain.doFilter(request, response);
+				}
+			}
 			// redirige al login, cuando no hay una sesion activa
-			res.sendRedirect("/ProyectoTienda/login.jsp");
-			logger.info("Sesion caducada");
+			//res.sendRedirect("/ProyectoTienda/login.jsp");
+			
+			
 			
 		}
 	}
