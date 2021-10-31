@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import DTO.Rol;
 
 public class RolDAO {
-	private static Logger logger = LogManager.getLogger(UsuarioDAO.class);
+	private static Logger logger = LogManager.getLogger(RolDAO.class);
 	
     public static ArrayList<Rol> seleccionarRoles(){
         ArrayList<Rol> roles = new ArrayList<Rol>();
